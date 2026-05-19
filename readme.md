@@ -78,29 +78,7 @@ datelor sau funcția fiecărui semnal.
 Acest lucru este important pentru afișajele multilinie alfanumerice, deoarece acestea pot necesita transferuri rapide de date pentru a actualiza conținutul afișajului \
 în timp real, oferind astfel o experiență vizuală mai fluidă și mai responsivă.
 ## 10.e) Desenați o diagramă simplă cu un master SPI și două dispozitive slave SPI din care să reiasă modul de interconectare a semnalelor.
-        Master SPI
-        +---------+
-        |         |
-        |         |
-        |         |
-        +---------+
-         |   |   |
-         |   |   |
-         |   |   |
-        SCK MOSI MISO
-         |   |   |
-         |   |   |
-         |   |   |
-        +---------+     +---------+
-        | Slave 1 |     | Slave 2 |
-        +---------+     +---------+
-         |   |           |   |
-         |   |           |   |
-         |   |           |   |
-        SS1 MOSI       SS2 MOSI
-         |               |
-         |               |
-         +---------------+
+![Diagramă SPI](https://i.imgur.com/AK2ppzZ.png)
 ## 10.f) Care este rolul semnalelor de Slave Select într-un sistem SPI? Menționați un efect al acestui semnal asupra ieșirii perifericului (SO), presupunând acesta dispune de ieșire.
 > Determină slave-ul cu care masterul dorește să comunice. SS activ -> slave activ, receptioneaza data si raspunde la comenzi.`
 ## 10.g) Care este secvența de comenzi pe 8 biți cu care se trece interfața de comunicație a LCD-urilor din familiile HD4460/ în modul de lucru pe 4 biți?
@@ -113,46 +91,9 @@ Acest lucru este important pentru afișajele multilinie alfanumerice, deoarece a
 ## 10.i) Cum se controlează iluminarea pentru LCD-urile din modulele Microe LCD mini click? 
 > Prin intermediul unui pin de control al retro-iluminării, care poate fi conectat la un semnal PWM sau la o tensiune de alimentare.
 ## 10.j) Desenați o schemă electrică care poate fi folosită pentru controlul retro-iluminării  unui modul LCD folosind RP2040.
-        RP2040
-        +---------+
-        |         |
-        |         |
-        |         |
-        +---------+
-         |   |
-         |   |
-         |   |
-        PWM Control
-         |   |
-         |   |
-         |   |
-        +---------+
-        | LCD     |
-        | Module  |
-        +---------+
-         |   |
-         |   |
-         |   |
-        Backlight Control
+![Diagramă control retro-iluminare LCD](https://i.imgur.com/SGWipj3.png)
 ## 10.k) Desenați schema electronică (numind toate semnalele/conexiunile) pentru trei module SPI conectate în modul daisy-chain la un microcontroller?
-[MICROCONTROLLER / MASTER]
-```
-  |
-  |--- SCK (Ceas) -----------------+-------------------+-------------------+
-  |                                |                   |                   |
-  |--- SS / CS (Selecție) ---------+-------------------+-------------------+
-  |                                |                   |                   |
-  |                              [SCK]               [SCK]               [SCK]
-  |                              [CS]                [CS]                [CS]
-  |                                |                   |                   |
-  |--- MOSI -----------------> [SDI] SLAVE 1           |                   |
-  |                            [SDO] ----------------> [SDI] SLAVE 2       |
-  |                                                    [SDO] ------------> [SDI] SLAVE 3
-  |                                                                        [SDO] --+
-  |                                                                                |
-  |<-------------------------------------------------------------------------------+
-     MISO
-```
+![Diagramă SPI Daisy-Chain](https://i.imgur.com/WCRy5CP.png)
 ## 11.a) Care sunt semnalele specifice protocolului I2C (abreviere si nume) și direcționalitatea lor într-un sistem simplu (multislave, single-master).
 > - SDA (Serial Data) - semnal de date bidirecțional care transportă datele între master și slave
 > - SCL (Serial Clock) - semnal de ceas generat de master pentru a sincroniza transferul de date între master și slave
@@ -183,7 +124,8 @@ Acest lucru previne stările de flotare care pot duce la interpretarea eronată 
 ## 11.j) Ce soluție se poate folosi când se dorește utilizarea mai multor dispozitive slave I2C cu aceeași adresă în situația în care nu poate fi schimbată/configurată? 
 > Multiplexor I2C, care permite selectarea unui grup de dispozitive slave cu aceeași adresă
 ## 11.k) Care este secvența pe magistrala I2C care genereză simbolul START (S)?
-> Linia SDA trece de la nivel logic înalt la nivel logic scăzut în timp ce linia SCL este la nivel logic înalt.
+> Linia SDA trece de la nivel logic înalt la nivel logic scăzut în timp ce linia SCL este la nivel logic înalt. \
+
 ## 11.l) Care este secvența pe magistrala I2C care genereză simbolul STOP (P)?
 > Linia SDA trece de la nivel logic scăzut la nivel logic înalt în timp ce linia SCL este la nivel logic înalt.
 ## 11.k) Care este diferența între simbolul START și RESTART pe magistrala I2C?
