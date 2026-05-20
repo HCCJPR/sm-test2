@@ -43,6 +43,13 @@ care transmite date și Rx este semnalul de intrare al dispozitivului care prime
 CTS (Clear to Send) - semnal de intrare care indică că dispozitivul este gata să primească date. \
 Aceste semnale sunt folosite pentru a controla fluxul de date între două dispozitive, prevenind pierderea de date atunci când unul dintre dispozitivee nu este pregătit să transmită sau să primească date.
 ## 9.c) Ce tip de ieșire au circuitele TSOP98638 pentru decodarea semnalelor infraroșii modulate ca trenuri de impulsuri?
+> Circuitele TSOP98638 oferă o ieșire digitală de tip „drenă deschisă” (open-drain), care reproduce fidel trenul de impulsuri demodulat. Aceasta înseamnă că pinul de ieșire poate fi conectat direct la un microcontroler și, de obicei, necesită un rezistor de pull-up extern (în jur de 30 kΩ, conform recomandărilor producătorului) pentru a asigura un nivel logic HIGH stabil în absența semnalului.
+
+Pentru o înțelegere mai clară, această ieșire funcționează în mod obișnuit „activ în 0” (active-low):
+
+În repaus (fără semnal): Pinul de ieșire (OUT) este în stare HIGH (aprox. V_s).
+
+La recepționarea unui semnal IR modulat (38 kHz): Ieșirea comută în starea LOW (aprox. 0 V), urmărind cu precizie durata fiecărui impuls din trenul de date.
 > Ieșirea este de tip digitală, oferind un semnal logic care indică prezența sau absența unui semnal infraroșu modulat detectat.
 ## 9.d) Cum trebuie modulat semnalul de activare a unui LED infraroșu pentru ca acesta să fie detectat de senzorul TSOP98638?
 > Semnalul de activare trebuie să fie modulat la o frecvență specifică (de obicei în jur de 38 kHz) pentru a fi detectat corect de senzorul TSOP98638. \
@@ -85,8 +92,8 @@ Acest lucru este important pentru afișajele multilinie alfanumerice, deoarece a
 > Determină slave-ul cu care masterul dorește să comunice. SS activ -> slave activ, receptioneaza data si raspunde la comenzi.`
 ## 10.g) Care este secvența de comenzi pe 8 biți cu care se trece interfața de comunicație a LCD-urilor din familiile HD4460/ în modul de lucru pe 4 biți?
 > Pentru a trece interfața de comunicație a LCD-urilor din familiile HD4460 în modul de lucru pe 4 biți, se poate folosi următoarea secvență de comenzi pe 8 biți:
-1. Trimiteți comanda 0x33 pentru a inițializa LCD-ul
-2. Trimiteți comanda 0x32 pentru a seta modul de lucru pe 4 biți
+1. De două ori se transmite comanda 0x30 pentru a inițializa LCD-ul
+2. O dată se transmite comanda 0x20 pentru a seta modul de lucru pe 4 biți
 
 ## 10.h) Cum se controlează contrastul pentru LCD-urile din modulele Microe LCD mini click? 
 > Contrastul pentru LCD-urile din modulele Microe LCD mini click se controlează prin intermediul unui potențiometru conectat la pinul de contrast al LCD-ului.
