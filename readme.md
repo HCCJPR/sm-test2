@@ -26,8 +26,10 @@ O perioadă de eșantionare prea redusă poate face imposibilă finalizarea exec
 Această funcție permite specificarea pinului GPIO, \
 tipul de tranziție (de exemplu, rising edge, falling edge sau ambele), și callback-ul care va fi apelat atunci când întreruperea este declanșată.
 ## 8.b) Cum se identifică pinul GPIO care a declanșat o întrerupere de schimbare de stare dacă a fost activată pentru mai mulți pini? (exemplicați în contextul funcțiilor din biblioteca Pico-SDK)
-folosind funcția `gpio_get_irq_status()`. Această funcție returnează un bitmask în care fiecare bit corespunde unui pin GPIO. \
-Pentru a determina care pin a declanșat întreruperea, se poate itera prin bitmask și verifica care bit este setat.
+> In semnătura funcției de callback pentru întrerupere, \
+se primește un parametru care indică pinul GPIO care a declanșat întreruperea. \
+typedef void (*gpio_irq_callback_t)(uint gpio, uint32_t events); \
+În acest caz, `gpio` va conține numărul pinului GPIO care a declanșat întreruperea.
 ## 8.c) Cum poate fi utilizat instrumentul software picotool pentru a reporni o aplicație de pe RPi Pico în module BOOTSEL, daca aplicația care rulează pe place suportă reset prin USB?
 > `picotool reboot `
 ## 8.d) Cum poate fi utilizat instrumentul software picotool pentru a reporni o aplicație de pe RPi Pico în module aplicație dacă placa este conectată în modul BOOTSEL?
