@@ -117,10 +117,10 @@ care necesită o linie de selecție (SS) pentru fiecare dispozitiv slave.
 Acest lucru previne stările de flotare care pot duce la interpretarea eronată a semnalelor
 ## 11.i) Ce adrese sunt rezervate în protocolul I2C? Dați exemple.
 > Adresele rezervate în protocolul I2C includ:
-- Adresa de broadcast (0x00) - utilizată pentru a adresa toate dispozitivele slave simultan
-- Adresa de general call (0x01) - utilizată pentru a adresa toate dispozitivele slave care răspund la această adresă
-- Adresa de start byte (0x02) - utilizată pentru a indica începutul unei transmisii
-- Adresa de stop byte (0x03) - utilizată pentru a indica sfârșitul unei transmisii
+- Adresa de general call (0x00) - utilizată pentru a adresa toate dispozitivele slave simultan
+- Octetul de Start (0x01) - utilizată pentru a indica începutul unei transmisii
+- Adresa de CBUS (0x02) - The CBUS address has been reserved to enable the inter-mixing of CBUS compatible and I2C-bus compatible devices in
+the same system. I2C-bus compatible devices are not allowed to respond on reception of this address
 ## 11.j) Ce soluție se poate folosi când se dorește utilizarea mai multor dispozitive slave I2C cu aceeași adresă în situația în care nu poate fi schimbată/configurată? 
 > Multiplexor I2C, care permite selectarea unui grup de dispozitive slave cu aceeași adresă
 ## 11.k) Care este secvența pe magistrala I2C care genereză simbolul START (S)?
