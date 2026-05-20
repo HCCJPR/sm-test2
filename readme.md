@@ -119,8 +119,10 @@ Acest lucru previne stările de flotare care pot duce la interpretarea eronată 
 > Adresele rezervate în protocolul I2C includ:
 - Adresa de general call (0x00) - utilizată pentru a adresa toate dispozitivele slave simultan
 - Octetul de Start (0x01) - utilizată pentru a indica începutul unei transmisii
-- Adresa de CBUS (0x02) - The CBUS address has been reserved to enable the inter-mixing of CBUS compatible and I2C-bus compatible devices in
-the same system. I2C-bus compatible devices are not allowed to respond on reception of this address
+- Adresa de CBUS (0x02) - scopul adresei CBUS este \
+de a preveni conflictele de adresare: dispozitivele \
+I²C ignoră aceste adrese, iar controlerul poate detecta că un \
+dispozitiv CBUS este prezent dacă unul dintre aceste identificatoare apare pe magistrală. În practica modernă, CBUS nu mai este utilizat, dar rezervarea rămâne în standard.
 ## 11.j) Ce soluție se poate folosi când se dorește utilizarea mai multor dispozitive slave I2C cu aceeași adresă în situația în care nu poate fi schimbată/configurată? 
 > Multiplexor I2C, care permite selectarea unui grup de dispozitive slave cu aceeași adresă
 ## 11.k) Care este secvența pe magistrala I2C care genereză simbolul START (S)?
