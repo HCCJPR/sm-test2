@@ -136,15 +136,29 @@ Acest lucru previne stările de flotare care pot duce la interpretarea eronată 
 ## 12.b) Care este constanta literală în C pe un sistem little endian care trebuie pusă într-un buffer de pixeli RGB565 (e.g. uint16_t b[100]; b[0]=0xXYZW; )  transmis apoi prin SPI controller-ului OLED SSD1351 pentru a genera pixeli cu componenta verde cu valoare maximă și celelalte componente nule?
 > 0x07E0 
 ## 12.c) Care este succesiunea de comenzi și rolul parametrilor acestora pentru a redesena un bloc de 10 pe 10 pixel RGB565 pe un ecran OLED 128x128 pixeli controlat prin SSD1351?
-> 1. Comanda de setare a coloanei (Set Column Address): 
-   - Parametrii: start column (0), end column (9)
-   - Rol: specifică intervalul de coloane în care vor fi actualizați pixelii
-2. Comanda de setare a rândului (Set Row Address):
-   - Parametrii: start row (0), end row (9)
-   - Rol: specifică intervalul de rânduri în care vor fi actualizați
-3. Comanda de scriere a datelor (Write RAM):
-   - Parametrii: datele pixelilor în format RGB565 pentru blocul de 10x10 pixeli
-   - Rol: transmite datele pixelilor care vor fi afișați în zona specificată de comenzile anterioare
+Pentru a redesena un bloc de 10×10 pixeli cu colțul stânga-sus la (x0, y0), se trimit comenzile (codul folosește macro-ul OLED_WRITE_CMD care expandează în OLED_write_cmd cu datele aferente):
+
+OLED_SET_COLUMN (0x15) – stabilește fereastra orizontală.
+Parametri: x0 (coloană start) și x1 = x0 + 9 (coloană finală).
+Rol: Definește intervalul de coloane care va fi actualizat.
+
+OLED_SET_ROW (0x75) – stabilește fereastra verticală.
+Parametri: y0 (rând start) și y1 = y0 + 9 (rând final).
+Rol: Definește intervalul de rânduri care va fi actualizat.
+
+OLED_WRITE_RAM (0x5C) – comandă fără parametri, care inițiază scrierea datelor de pixel în memoria grafică (GRAM).
+Rol: Pregătește controlerul să primească datele de culoare.
+
+Transmisia datelor: se trimit 10 × 10 × 2 = 200 de octeți, reprezentând pixeli RGB565 în ordine rând-cu-rând (primul rând de sus, de la stânga la dreapta).
+Aceasta se face prin OLED_write_data(buffer, 200), care asertează DC = 1, selectează chip-ul (CS = 0), transmite octeții prin SPI, apoi eliberează CS.
+
+În codul oferit, funcția OLED_draw_block(x0, y0, x1, y1, data, len) încapsulează exact acești pași:
+```c
+OLED_WRITE_CMD(OLED_SET_COLUMN, x0, x1);
+OLED_WRITE_CMD(OLED_SET_ROW,    y0, y1);
+OLED_WRITE_CMD(OLED_WRITE_RAM);
+OLED_write_data(data, len);
+```
 ## 12.d) De ce se preferă utilizarea unei iluminări mai reduse când se folosește un ecran OLED?
 > Deoarece fiecare pixel OLED emite lumină individual și consumă energie în funcție de nivelul de luminozitate. \
 Reducerea iluminării poate reduce consumul de energie și, implicit, uzura pixelilor, prelungind astfel durata de viață a ecranului
