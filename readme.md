@@ -28,9 +28,9 @@ se primește un parametru care indică pinul GPIO care a declanșat întrerupere
 typedef void (*gpio_irq_callback_t)(uint gpio, uint32_t events); \
 În acest caz, `gpio` va conține numărul pinului GPIO care a declanșat întreruperea.
 ## 8.c) Cum poate fi utilizat instrumentul software picotool pentru a reporni o aplicație de pe RPi Pico în module BOOTSEL, daca aplicația care rulează pe place suportă reset prin USB?
-> `picotool reboot `
+> `picotool reboot -f`
 ## 8.d) Cum poate fi utilizat instrumentul software picotool pentru a reporni o aplicație de pe RPi Pico în module aplicație dacă placa este conectată în modul BOOTSEL?
-> `picotool reboot --app`
+> `picotool reboot -app`
 ## 9.a) Care sunt cele două semnalele de date esențiale pentru protocolul UART și care este principiul lor de denumire?
 > Semnalele esențiale sunt Tx (Transmit) și Rx (Receive). \
 Principiul de denumire este că Tx este semnalul de ieșire al dispozitivului\
