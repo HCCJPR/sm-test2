@@ -64,7 +64,7 @@ Exemple de implementări prezentate în documentație includ: \
 - Probleme de împământare sau de ecranare a cablurilor
 ## 9.g) Care este nivelul de tensiune obișnuit al liniei de ieșire Tx în timpul transmiterii biților de stop de către perifericele UART ale RP2040? Cum se poate inversa polaritatea din micropython?
 > 3.3V  \
-Pentru a inversa polaritatea din MicroPython, se poate utiliza o rezistență pull-up sau pull-down externă pentru a forța linia Tx să fie la nivel logic scăzut atunci când nu transmite date.
+> UART.init(..., invert=UART.INV_TX ...)
 ## 9.h) Analizând captura de osciloscop estimați întârzierea între semnalul transmis și cel recepționat (prin propagare locală)
 > Întârzierea poate fi estimată măsurând timpul dintre începutul semnalului transmis și începutul semnalului recepționat pe captura de osciloscop. \
 ## 10.a) Care sunt semnalele uzuale pentru protocolul SPI? (menționați o variantă de abreviere pentru fiecare și expandarea acesteia)?
