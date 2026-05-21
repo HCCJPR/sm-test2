@@ -5,10 +5,7 @@
 ## 7.b) Din punctul de vedere al timpului, ce este esențial pentru implementarea unei rutine de control care să poată exploata cu ușurință proprietățile transformatei z?
 > definirea perioadei de eșantionare și control
 ## 7.c) Ce compromis trebuie să asigure alegerea perioadei de eșantionare și control într-un sistem care reglează viteza unui motor DC în buclă închisă folosind un encoder în cuadratură și o punte H?
-> o perioadă de eșantionare mare nu va asigura stabilitatea sistemului 
-(acesta va evolua semnificativ între momentele de intervenție ale regulatorului). 
-O perioadă de eșantionare prea redusă poate face imposibilă finalizarea execuției rutinei de reglare, sau poate limita semnificativ rezoluția senzorilor folosiți, 
-în funcție de modul de exploatare al acestora) 
+> precizia masurării și stabilitatea sistemului de control, evitând în același timp supraîncărcarea procesorului sau generarea de zgomot în semnalul de control
 ## 7.e) Ce trebuie făcut într-o implementare de rutină de control PI pentru a limita efectele nedorite ale acumulării efectului erorii pe termen lung?
 > Se poate introduce o limitare a valorii maxime a termenului integral, sau se poate introduce o resetare a termenului integral la anumite 
 > intervale de timp sau condiții specifice (de exemplu, când eroarea este foarte mică sau când sistemul atinge o stare stabilă).
@@ -20,7 +17,7 @@ O perioadă de eșantionare prea redusă poate face imposibilă finalizarea exec
 > folosind un filtru de ordin I (cu caracteristică exponențial negativă) care este foarte ușor de implementat în sisteme digitale
 
 ## 7.j) Care este rolul diodelor antiparalele de pe tranzistorii din punțile H?
-> Aceste diode permit curentului să circule în ambele direcții prin motor, ceea ce este esențial pentru a permite schimbarea direcției de rotație a motorului și pentru a proteja tranzistorii de tensiunile induse generate de motor în timpul schimbării direcției sau opririi.
+> Rolul diodelor antiparalele (numite și diode de fugă, de regim liber sau “flyback”) montate pe fiecare tranzistor al unei punți H este de a proteja tranzistoarele împotriva supratensiunilor inductive și de a asigura continuitatea curentului prin sarcina inductivă (motorul de curent continuu).
 ## 8.a) Cum se configurează o rutină de întrerupere pentru  a detecta tranziția unui pin GPIO de intrare (e.g intrare de encoder)? (exemplicați cu funcții din biblioteca Pico-SDK)
 > Se poate folosi funcția `gpio_set_irq_enabled_with_callback()` \
 Această funcție permite specificarea pinului GPIO, \
